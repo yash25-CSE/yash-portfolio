@@ -12,6 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/", router);
 app.listen(5000, () => console.log("Server Running"));
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS );
 
 
 const contactEmail = nodemailer.createTransport({
@@ -44,6 +46,13 @@ app.get("/test-mail", async (req, res) => {
     console.error(err);
     res.status(500).json(err);
   }
+});
+
+app.get("/env-test", (req, res) => {
+  res.json({
+    emailUser: process.env.EMAIL_USER,
+    emailPassExists: !!process.env.EMAIL_PASS,
+  });
 });
 
 router.post("/contact", (req, res) => {
