@@ -1,8 +1,7 @@
 # Personal Portfolio Website in React
+# Yash Sahejwani - Personal Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-<img width="1266" alt="Screen Shot 2022-06-19 at 2 18 18 PM" src="https://github.com/yash25-CSE/yash-portfolio/blob/main/src/assets/img/Project_Image2.png?raw=true">
+<img width="1266" alt="Screen Shot 2022-06-19 at 2 18 18 PM" src="https://github.com/yash25-CSE/yash-portfolio/blob/main/src/assets/img/image.png?raw=true">
 
 Built using:
 
@@ -23,7 +22,6 @@ You may also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -33,4 +31,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
