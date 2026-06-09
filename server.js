@@ -12,16 +12,17 @@ app.use(cors());
 app.use(express.json());
 app.use("/", router);
 app.listen(5000, () => console.log("Server Running"));
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS );
 
 
 const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS,
   },
+  connectionTimeout: 30000,
 });
 
 contactEmail.verify((error) => {
@@ -34,26 +35,30 @@ contactEmail.verify((error) => {
 
 app.get("/test-mail", async (req, res) => {
   try {
-    await contactEmail.sendMail({
+    const info = await contactEmail.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
-      subject: "Test",
+      subject: "Test Email",
       text: "SMTP working",
     });
 
-    res.send("Mail Sent");
+    console.log("Mail Sent:", info.response);
+
+    res.json({
+      success: true,
+      response: info.response,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
+    console.error("FULL ERROR:", err);
+
+    res.status(500).json({
+      success: false,
+      code: err.code,
+      message: err.message,
+    });
   }
 });
 
-app.get("/env-test", (req, res) => {
-  res.json({
-    emailUser: process.env.EMAIL_USER,
-    emailPassExists: !!process.env.EMAIL_PASS,
-  });
-});
 
 router.post("/contact", (req, res) => {
   const name = req.body.firstName + req.body.lastName;
