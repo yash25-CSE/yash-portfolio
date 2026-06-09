@@ -48,16 +48,16 @@ export const Banner = () => {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    let ticker = setInterval(() => {
-      tick();
-    }, delta);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+      let ticker = setInterval(() => {
+        tick();
+      }, delta);
 
-    return () => {
-      clearInterval(ticker);
-    };
-  }, [text]);
+      return () => {
+        clearInterval(ticker);
+      };
+    }, [text]);
 
   return (
     <section className="banner" id="home">
