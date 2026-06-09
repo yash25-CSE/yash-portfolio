@@ -30,6 +30,22 @@ contactEmail.verify((error) => {
   }
 });
 
+app.get("/test-mail", async (req, res) => {
+  try {
+    await contactEmail.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "Test",
+      text: "SMTP working",
+    });
+
+    res.send("Mail Sent");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
 router.post("/contact", (req, res) => {
   const name = req.body.firstName + req.body.lastName;
   const email = req.body.email;
