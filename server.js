@@ -22,16 +22,16 @@ const contactEmail = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  connectionTimeout: 30000,
 });
 
-contactEmail.verify((error) => {
+/*contactEmail.verify((error) => {
   if (error) {
     console.log(error);
   } else {
     console.log("Ready to Send");
   }
 });
+*/
 
 app.get("/test-mail", async (req, res) => {
   try {
