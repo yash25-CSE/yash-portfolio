@@ -71,12 +71,22 @@ app.get("/test-mail", async (req, res) => {
   }
 });
 
-app.post("/test-contact", (req, res) => {
-  console.log(req.body);
+app.get("/smtp-test", (req, res) => {
+  contactEmail.verify((error, success) => {
+    if (error) {
+      console.log(error);
 
-  res.json({
-    code: 200,
-    status: "API Working",
+      return res.status(500).json({
+        success: false,
+        code: error.code,
+        message: error.message,
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "SMTP Connected",
+    });
   });
 });
 
@@ -87,13 +97,16 @@ router.post("/contact", (req, res) => {
   const message = req.body.message;
   const phone = req.body.phone;
   const mail = {
-    from: name,
+    from: process.env.EMAIL_USER,
+    replyTo: email,
     to: process.env.EMAIL_USER,
     subject: "Contact Form Submission - Portfolio",
-    html: `<p>Name: ${name}</p>
-           <p>Email: ${email}</p>
-           <p>Phone: ${phone}</p>
-           <p>Message: ${message}</p>`,
+    html: `
+      <p>Name: ${name}</p>
+      <p>Email: ${email}</p>
+      <p>Phone: ${phone}</p>
+      <p>Message: ${message}</p>
+    `,
   };
   contactEmail.sendMail(mail, (error) => {
     if (error) {
