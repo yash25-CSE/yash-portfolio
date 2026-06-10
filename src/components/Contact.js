@@ -18,10 +18,7 @@ export const Contact = () => {
   const [status, setStatus] = useState({});
 
   // Localhost in development, Render in production
-  const API_URL =
-    process.env.NODE_ENV === "production"
-      ? "https://yash-portfolio-dy7r.onrender.com"
-      : "http://localhost:5000";
+
 
   const onFormUpdate = (category, value) => {
     setFormDetails({
@@ -36,7 +33,7 @@ export const Contact = () => {
     setButtonText("Sending...");
 
     try {
-      const response = await fetch(`${API_URL}/contact`, {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
