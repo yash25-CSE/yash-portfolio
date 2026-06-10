@@ -8,10 +8,22 @@ require("dotenv").config();
 
 // server used to send send emails
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://portfolio-self-five-encod0w1lx.vercel.app",
+      "http://localhost:3000",
+    ],
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 
 const contactEmail = nodemailer.createTransport({
@@ -24,14 +36,14 @@ const contactEmail = nodemailer.createTransport({
   },
 });
 
-/*contactEmail.verify((error) => {
+contactEmail.verify((error) => {
   if (error) {
     console.log(error);
   } else {
     console.log("Ready to Send");
   }
 });
-*/
+
 
 app.get("/test-mail", async (req, res) => {
   try {
@@ -57,6 +69,15 @@ app.get("/test-mail", async (req, res) => {
       message: err.message,
     });
   }
+});
+
+app.post("/test-contact", (req, res) => {
+  console.log(req.body);
+
+  res.json({
+    code: 200,
+    status: "API Working",
+  });
 });
 
 
