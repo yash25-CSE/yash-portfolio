@@ -95,7 +95,8 @@ nav.navbar.scrolled {
   background-color: #121212;
 }
 nav.navbar a.navbar-brand {
-    width: 9%;
+    width: auto;
+    max-width: 100%;
 }
 nav.navbar .navbar-nav .nav-link.navbar-link {
   font-weight: 400;
@@ -104,6 +105,11 @@ nav.navbar .navbar-nav .nav-link.navbar-link {
   padding: 0 25px;
   font-size: 18px;
   opacity: 0.75;
+}
+@media (max-width: 768px) {
+  nav.navbar .navbar-brand {
+    font-size: 1.2rem !important;
+  }
 }
 nav.navbar .navbar-nav a.nav-link.navbar-link:hover,
 nav.navbar .navbar-nav a.nav-link.navbar-link.active {
@@ -229,6 +235,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
 nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 	border-color: transparent;
 }
+
+
 
 /************ Banner Css ************/
 .banner {
@@ -615,4 +623,61 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: #B8B8B8;
   letter-spacing: 0.5px;
   margin-top: 20px;
+}
+
+
+.about {
+  padding: 80px 0;
+  position: relative;
+  color: #fff;
+}
+
+.about-img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 20px;
+  border: 3px solid rgba(170, 54, 124, 0.6);
+  box-shadow: 0 0 30px rgba(170, 54, 124, 0.4);
+}
+
+.about-tagline {
+  display: inline-block;
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    rgba(170, 54, 124, 0.5),
+    rgba(74, 47, 189, 0.5)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.about p {
+  color: #b8b8b8;
+  font-size: 18px;
+  line-height: 1.8em;
+}
+
+.about-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.about-stats h3 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #aa367c;
+}
+
+.about-stats span {
+  color: #b8b8b8;
 }
