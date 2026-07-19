@@ -45,50 +45,9 @@ contactEmail.verify((error) => {
 });
 
 
-app.get("/test-mail", async (req, res) => {
-  try {
-    const info = await contactEmail.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "Test Email",
-      text: "SMTP working",
-    });
 
-    console.log("Mail Sent:", info.response);
 
-    res.json({
-      success: true,
-      response: info.response,
-    });
-  } catch (err) {
-    console.error("FULL ERROR:", err);
 
-    res.status(500).json({
-      success: false,
-      code: err.code,
-      message: err.message,
-    });
-  }
-});
-
-app.get("/smtp-test", (req, res) => {
-  contactEmail.verify((error, success) => {
-    if (error) {
-      console.log(error);
-
-      return res.status(500).json({
-        success: false,
-        code: error.code,
-        message: error.message,
-      });
-    }
-
-    return res.json({
-      success: true,
-      message: "SMTP Connected",
-    });
-  });
-});
 
 
 router.post("/contact", (req, res) => {
@@ -117,3 +76,53 @@ router.post("/contact", (req, res) => {
   });
 });
 
+
+router.post("/newsletter", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "New Newsletter Subscription",
+      html: `
+        <h2>New Newsletter Subscription</h2>
+
+        <p>Email: ${email}</p>
+      `,
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Thank You for Subscribing!",
+      html: `
+        <h2>Thank You!</h2>
+
+        <p>Your subscription request has been received successfully.</p>
+
+        <p>You'll hear from us soon!</p>
+      `,
+    });
+
+    res.json({
+      success: true,
+      message: "Subscription successful!",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong.",
+    });
+  }
+});

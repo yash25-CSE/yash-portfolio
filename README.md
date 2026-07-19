@@ -32,3 +32,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 
+
+I have used Nodemailer :: Nodemailer is a popular Node.js library that allows you to send emails directly from your server-side JavaScript applications.
+It’s widely used because it’s simple, flexible, and works with many email services
